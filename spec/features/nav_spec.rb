@@ -40,9 +40,9 @@ RSpec.describe 'Site Nav', type: :feature do
     expect(page.status_code).to eq(404)
     visit admin_users_path
     expect(page.status_code).to eq(404)
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
     expect(page.status_code).to eq(404)
-    visit admin_merchant_path(@merchant)
+    visit admin_merchant_path(@merchant.slug)
     expect(page.status_code).to eq(404)
   end
 
@@ -71,9 +71,9 @@ RSpec.describe 'Site Nav', type: :feature do
     expect(page.status_code).to eq(404)
     visit admin_users_path
     expect(page.status_code).to eq(404)
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
     expect(page.status_code).to eq(404)
-    visit admin_merchant_path(@merchant)
+    visit admin_merchant_path(@merchant.slug)
     expect(page.status_code).to eq(404)
     visit admin_dashboard_index_path
     expect(page.status_code).to eq(404)
@@ -102,9 +102,9 @@ RSpec.describe 'Site Nav', type: :feature do
     expect(page.status_code).to eq(404)
     visit admin_users_path
     expect(page.status_code).to eq(404)
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
     expect(page.status_code).to eq(404)
-    visit admin_merchant_path(@merchant)
+    visit admin_merchant_path(@merchant.slug)
     expect(page.status_code).to eq(404)
     visit admin_dashboard_index_path
     expect(page.status_code).to eq(404)

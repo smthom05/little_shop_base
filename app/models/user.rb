@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  after_validation :set_slug, only: [:create, :update]
   has_secure_password
 
   enum role: [:default, :merchant, :admin]
@@ -11,6 +12,10 @@ class User < ApplicationRecord
 
   validates_presence_of :name, :address, :city, :state, :zip
   validates :email, presence: true, uniqueness: true
+
+  def to_param
+    slug
+  end
 
   def self.active_merchants
     where(role: "merchant", active: true)

@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  after_validation :set_slug, only: [:create, :update]
   belongs_to :user, foreign_key: 'merchant_id'
   has_many :order_items
   has_many :orders, through: :order_items
@@ -12,6 +13,10 @@ class Item < ApplicationRecord
     only_integer: true,
     greater_than_or_equal_to: 0
   }
+
+  def to_param
+    slug
+  end
 
   def avg_time_to_fulfill
     data = Item.joins(:order_items)

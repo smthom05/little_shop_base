@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20190225223542) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "merchant_id"
-    t.string "slug", null: false
+    t.string "slug"
     t.index ["merchant_id"], name: "index_items_on_merchant_id"
   end
 
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20190225223542) do
     t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug", null: false
+    t.string "slug"
     t.index ["city"], name: "index_users_on_city"
     t.index ["email"], name: "index_users_on_email"
     t.index ["state"], name: "index_users_on_state"

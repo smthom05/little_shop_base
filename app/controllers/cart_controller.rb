@@ -34,7 +34,7 @@ class CartController < ApplicationController
   private
 
   def remove_item(item_id, count=nil)
-    item = Item.find(params[:id])
+    item = Item.find_by(slug: params[:slug])
     if count.nil?
       @cart.remove_all_of_item(item.id)
       flash[:success] = "You have removed all packages of #{item.name} from your cart"

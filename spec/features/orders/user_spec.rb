@@ -21,7 +21,7 @@ RSpec.describe 'User Order workflow', type: :feature do
     @oi_1 = create(:fulfilled_order_item, order: @order_2, item: @item_1, price: 1, quantity: 1, created_at: 1.day.ago, updated_at: 5.hours.ago)
     @oi_2 = create(:fulfilled_order_item, order: @order_2, item: @item_2, price: 2, quantity: 1, created_at: 1.day.ago, updated_at: 2.hours.ago)
 
-    visit item_path(@item_2)
+    visit item_path(@item_2.slug)
     expect(page).to have_content("In stock: #{@inventory_level}")
   end
 
@@ -36,10 +36,10 @@ RSpec.describe 'User Order workflow', type: :feature do
     end
     scenario 'as an admin' do
       login_as(@admin)
-      visit admin_user_order_path(@user, @order_2)
+      visit admin_user_order_path(@user.slug, @order_2)
       expect(page).to_not have_button('Cancel Order')
 
-      visit admin_user_order_path(@user, @order_1)
+      visit admin_user_order_path(@user.slug, @order_1)
       @am_user = false
     end
     after :each do
@@ -48,7 +48,7 @@ RSpec.describe 'User Order workflow', type: :feature do
       if @am_user
         expect(current_path).to eq(profile_orders_path)
       else
-        expect(current_path).to eq(admin_user_orders_path(@user))
+        expect(current_path).to eq(admin_user_orders_path(@user.slug))
       end
 
       within "#order-#{@order_1.id}" do
@@ -72,7 +72,7 @@ RSpec.describe 'User Order workflow', type: :feature do
     @user_2 = create(:user)
     login_as(@admin)
 
-    visit admin_user_order_path(@user_2, @order_2)
+    visit admin_user_order_path(@user_2.slug, @order_2)
     expect(page.status_code).to eq(404)
   end
 end
