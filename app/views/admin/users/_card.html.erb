@@ -1,20 +1,20 @@
 <%= tag.div class: "card float-left m-3 user-card" do %>
   <%= tag.section class: "card-body" do %>
     <%= tag.h5 class: "card-title" do %>
-      <%= link_to user.name, admin_user_path(user) %>
+      <%= link_to user.name, admin_user_path(user.slug) %>
     <% end %>
     <p>Registration Date:<br/>
       <em><%= user.created_at %></em>
     </p>
     <p>
       <% if user.active %>
-      <%= button_to 'Disable', admin_disable_user_path(user), method: :put %>
+      <%= button_to 'Disable', admin_disable_user_path(user.slug), method: :put %>
       <% else %>
-      <%= button_to 'Enable', admin_enable_user_path(user), method: :put %>
+      <%= button_to 'Enable', admin_enable_user_path(user.slug), method: :put %>
       <% end %>
     </p>
     <p>
-      <%= button_to 'Upgrade to Merchant', admin_upgrade_user_path(user), method: :put %>
+      <%= button_to 'Upgrade to Merchant', admin_upgrade_user_path(user.slug), method: :put %>
     </p>
   <% end %>
 <% end %>

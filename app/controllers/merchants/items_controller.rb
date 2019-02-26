@@ -22,7 +22,7 @@ class Merchants::ItemsController < ApplicationController
       @item.destroy
     end
     if current_admin?
-      redirect_to admin_merchant_items_path(merchant)
+      redirect_to admin_merchant_items_path(merchant.slug)
     else
       redirect_to dashboard_items_path
     end
@@ -52,7 +52,7 @@ class Merchants::ItemsController < ApplicationController
     if @item.save
       flash[:success] = "#{@item.name} has been added!"
       if current_admin?
-        redirect_to admin_merchant_items_path(@merchant)
+        redirect_to admin_merchant_items_path(@merchant.slug)
       else
         redirect_to dashboard_items_path
       end
@@ -69,7 +69,7 @@ class Merchants::ItemsController < ApplicationController
   def update
     @merchant = current_user
     if current_admin?
-      @merchant = User.find_by(email: params[:slug])
+      @merchant = User.find_by(slug: params[:slug])
     end
     @item = Item.find_by(slug: params[:slug])
 
@@ -82,7 +82,7 @@ class Merchants::ItemsController < ApplicationController
     if @item.save
       flash[:success] = "#{@item.name} has been updated!"
       if current_admin?
-        redirect_to admin_merchant_items_path(@merchant)
+        redirect_to admin_merchant_items_path(@merchant.slug)
       else
         redirect_to dashboard_items_path
       end
@@ -107,7 +107,7 @@ class Merchants::ItemsController < ApplicationController
     item.active = state
     item.save
     if current_admin?
-      redirect_to admin_merchant_items_path(item.user)
+      redirect_to admin_merchant_items_path(item.user.slug)
     else
       redirect_to dashboard_items_path
     end

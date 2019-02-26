@@ -11,13 +11,13 @@
 <% if @user == current_user %>
 <%= link_to "Edit", edit_profile_path %>
 <% elsif current_admin? %>
-<%= link_to 'Edit', edit_admin_user_path(@user) %>
+<%= link_to 'Edit', edit_admin_user_path(@user.slug) %>
 <% end %>
 
 <% unless @user.orders.empty? %>
   <% if @user.id == current_user.id %>
   <%= link_to 'See all Orders', profile_orders_path %>
   <% elsif current_admin? %>
-  <%= link_to 'See all Orders', admin_user_orders_path(@user) %>
+  <%= link_to 'See all Orders', admin_user_orders_path(@user.slug) %>
   <% end %>
 <% end %>

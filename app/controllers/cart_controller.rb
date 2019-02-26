@@ -12,29 +12,29 @@ class CartController < ApplicationController
   end
 
   def add
-    add_item_to_cart(params[:id])
+    add_item_to_cart(Item.find_by(slug: params[:slug]))
     redirect_to items_path
   end
 
   def remove_all_of_item
-    remove_item(params[:id])
+    remove_item(Item.find_by(slug: params[:slug]))
     redirect_to cart_path
   end
 
   def add_more_item
-    add_item_to_cart(params[:id])
+    add_item_to_cart(Item.find_by(slug: params[:slug]))
     redirect_to cart_path
   end
 
   def remove_more_item
-    remove_item(params[:id], 1)
+    remove_item(Item.find_by(slug: params[:slug]), 1)
     redirect_to cart_path
   end
 
   private
 
   def remove_item(item_id, count=nil)
-    item = Item.find_by(slug: params[:slug])
+    item = Item.find_by(item_id)
     if count.nil?
       @cart.remove_all_of_item(item.id)
       flash[:success] = "You have removed all packages of #{item.name} from your cart"

@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     patch '/merchants/:slug/enable', to: 'merchants#enable', as: :enable_merchant
     patch '/merchants/:slug/disable', to: 'merchants#disable', as: :disable_merchant
     resources :merchants, only: [:show], param: :slug do
-      get '/orders/:slug', to: 'orders#merchant_show', as: :order
+      get '/orders/:id', to: 'orders#merchant_show', as: :order
       resources :items, only: [:index, :edit, :new], param: :slug
     end
 

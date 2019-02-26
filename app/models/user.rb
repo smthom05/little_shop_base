@@ -17,6 +17,11 @@ class User < ApplicationRecord
     slug
   end
 
+  def set_slug
+    self.slug = self.email.to_s.parameterize
+  end
+
+
   def self.active_merchants
     where(role: "merchant", active: true)
   end
@@ -77,7 +82,7 @@ class User < ApplicationRecord
   def top_items_sold_by_quantity(limit)
     items.joins(:order_items)
          .where(order_items: {fulfilled: true})
-         .select('items.id, items.name, sum(order_items.quantity) as quantity')
+         .select('items.id, items.name, items.slug, sum(order_items.quantity) as quantity')
          .group(:id)
          .order('quantity DESC, id')
          .limit(limit)
