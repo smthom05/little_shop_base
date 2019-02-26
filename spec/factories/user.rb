@@ -14,7 +14,6 @@ FactoryBot.define do
   factory :inactive_user, parent: :user do
     sequence(:name) { |n| "Inactive User Name #{n}" }
     sequence(:email) { |n| "inactive_user_#{n}@gmail.com" }
-    sequence(:slug) { |n| "user_#{n}-@gmail-com" }
     active { false }
   end
 
@@ -28,7 +27,6 @@ FactoryBot.define do
   factory :inactive_merchant, parent: :user do
     sequence(:email) { |n| "inactive_merchant_#{n}@gmail.com" }
     sequence(:name) { |n| "Inactive Merchant Name #{n}" }
-    sequence(:slug) { |n| "merchant_#{n}-@gmail-com" }
     role { 1 }
     active { false }
   end

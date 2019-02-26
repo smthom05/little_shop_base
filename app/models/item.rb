@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  after_validation :set_slug, only: [:create, :update]
+  # after_validation :set_slug, only: [:create, :update]
   before_validation :set_slug, on: :create
   belongs_to :user, foreign_key: 'merchant_id'
   has_many :order_items
@@ -19,8 +19,17 @@ class Item < ApplicationRecord
     slug
   end
 
+
   def set_slug
     self.slug = self.name.to_s.parameterize
+  end
+
+  def update_slug
+    if Item.exists?(name: self.name)
+      self.slug = self.name.to_s.parameterize
+    else
+      self.slug = (self.name.to_s + self.id.to_s).parameterize
+    end
   end
 
   def avg_time_to_fulfill

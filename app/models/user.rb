@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  after_validation :set_slug, only: [:create, :update]
+  # after_validation :set_slug, only: [:create, :update]
+  before_validation :set_slug, on: :create
+  before_save :set_slug
   has_secure_password
 
   enum role: [:default, :merchant, :admin]
@@ -20,7 +22,6 @@ class User < ApplicationRecord
   def set_slug
     self.slug = self.email.to_s.parameterize
   end
-
 
   def self.active_merchants
     where(role: "merchant", active: true)
