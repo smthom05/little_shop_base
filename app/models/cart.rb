@@ -11,6 +11,13 @@ class Cart
     end
   end
 
+  def subtotal_after_discounts(item_id)
+    item = Item.find(item_id)
+    subtotal_before_discounts(item_id)
+     # - find_discount_amount(item)
+  end
+
+
   def total_item_count
     @contents.values.sum
   end
@@ -33,14 +40,15 @@ class Cart
     subtract_item(item_id, count_of(item_id))
   end
 
-  def subtotal(item_id)
+  def subtotal_before_discounts(item_id)
     item = Item.find(item_id)
     item.price * count_of(item_id)
   end
 
   def grand_total
     @contents.keys.map do |item_id|
-      subtotal(item_id)
+      self.subtotal_after_discounts(item_id)
     end.sum
   end
+
 end

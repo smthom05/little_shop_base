@@ -1,0 +1,40 @@
+<h1>Add A New Discount</h1>
+
+<% if @merchant.dollar? %>
+  <p>You are currently set to using dollar based discounts for your bulk discounts.</p>
+<% elsif @merchant.percentage? %>
+  <p>You are currently set to using percentage based discounts for your bulk discounts.</p>
+<% end %>
+  <p>If you would like to switch discount types, you will need to DELETE ALL CURRENT discounts in the system.</p>
+  <br>
+  <p> <%= link_to "Click Here To Switch Discount Types || WARNING THIS IS A PERMANENT DELETION OF YOUR EXISTING DISCOUNTS!!", dashboard_switch_discount_type_path(@merchant)%> </p>
+
+<br><br>
+
+<%= form_for @form_path do |f| %>
+
+  <% if @discount.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@discount.errors.count, "error") %> prohibited this discount from being saved:</h2>
+
+      <ul>
+      <% @discount.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @merchant.dollar? %>
+    <p>Dollar <%= f.label :discount_amount %>
+    <%= f.number_field :discount_amount, min: 0, required: true %></p>
+    <p>Dollar <%= f.label :discount_quantity %>
+    <%= f.number_field :discount_quantity, min: 0, required: true %></p>
+  <% elsif @merchant.percentage? %>
+    <p>Percentage <%= f.label :discount_amount %>
+    <%= f.number_field :discount_amount, min: 0, required: true %></p>
+    <p>Percentage <%= f.label :discount_quantity %>
+    <%= f.number_field :discount_quantity, min: 0, required: true %></p>
+  <% end %>
+  <p><%= f.submit %></p>
+<% end %>

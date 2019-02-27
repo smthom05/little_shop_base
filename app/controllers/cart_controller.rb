@@ -33,6 +33,10 @@ class CartController < ApplicationController
 
   private
 
+  def add_bulk_discount
+  
+  end
+
   def remove_item(item_id, count=nil)
     item = Item.find(params[:id])
     if count.nil?

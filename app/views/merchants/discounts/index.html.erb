@@ -1,0 +1,23 @@
+<section class='all-discounts'>
+  <% if @merchant.dollar? %>
+    <h1>Your Current Discounts - Dollar Based ($$$)</h1>
+  <% elsif @merchant.percentage? %>
+    <h1>Your Current Discounts - Percentage Based (%%%)</h1>
+  <% end %>
+
+  <% if @discounts.count > 0 %>
+    <% @discounts.each do |discount| %>
+      <section id="discount-<%= discount.id %>">
+        <% if @merchant.dollar? %>
+          <p><a href="<%= dashboard_discount_path(discount) %>">Discount Number: <%= discount.id %> </a> || Discounted Amount: <%= pluralize(discount.discount_amount, 'dollar') %> || Required Spending: <%= pluralize(discount.discount_quantity, 'dollar') %></p>
+        <% elsif @merchant.percentage? %>
+          <p><a href="<%= dashboard_discount_path(discount) %>">Discount Number: <%= discount.id %> </a> || Discounted Amount: <%= discount.discount_amount %>% Off || Required: <%= pluralize(discount.discount_quantity, 'item') %></p>
+        <% end %>
+      </section>
+    <% end %>
+  <% else %>
+    <h4>You have not added any discounts yet.</h4>
+  <% end %>
+
+  <%= link_to "Add Discount", new_dashboard_discount_path %>
+</section>

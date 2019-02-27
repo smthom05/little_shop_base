@@ -2,15 +2,26 @@ class User < ApplicationRecord
   has_secure_password
 
   enum role: [:default, :merchant, :admin]
+  enum discount_type: [:dollar, :percentage, :disabled]
 
   # as a user
   has_many :orders
   has_many :order_items, through: :orders
   # as a merchant
   has_many :items, foreign_key: 'merchant_id'
+  has_many :discounts
 
   validates_presence_of :name, :address, :city, :state, :zip
   validates :email, presence: true, uniqueness: true
+
+  def change_discount_type
+    if self.dollar?
+      update_attribute(:discount_type, 1)
+    elsif self.percentage?
+      update_attribute(:discount_type, 0)
+    end
+  end
+
 
   def self.active_merchants
     where(role: "merchant", active: true)

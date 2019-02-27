@@ -142,6 +142,23 @@ RSpec.describe User, type: :model do
       @oi7.fulfill
     end
 
+    it '#change_discount_type' do
+      merchant = create(:merchant)
+
+      expect(merchant.discount_type).to eq("dollar")
+      expect(merchant.discount_type).to_not eq("percentage")
+
+      merchant.change_discount_type
+
+      expect(merchant.discount_type).to eq("percentage")
+      expect(merchant.discount_type).to_not eq("dollar")
+
+      merchant.change_discount_type
+
+      expect(merchant.discount_type).to eq("dollar")
+      expect(merchant.discount_type).to_not eq("percentage")
+    end
+
     it '.top_items_sold_by_quantity' do
       expect(@m1.top_items_sold_by_quantity(5)[0].name).to eq(@i2.name)
       expect(@m1.top_items_sold_by_quantity(5)[0].quantity).to eq(14)

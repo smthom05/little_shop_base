@@ -80,7 +80,7 @@ RSpec.describe Cart do
     cart.add_item(item_1.id)
     cart.add_item(item_1.id)
 
-    expect(cart.subtotal(item_1.id)).to eq(item_1.price * cart.total_item_count)
+    expect(cart.subtotal_before_discounts(item_1.id)).to eq(item_1.price * cart.total_item_count)
   end
 
   it '.grand_total' do
@@ -92,6 +92,6 @@ RSpec.describe Cart do
     cart.add_item(item_2.id)
     cart.add_item(item_2.id)
 
-    expect(cart.grand_total).to eq(cart.subtotal(item_1.id) + cart.subtotal(item_2.id))
+    expect(cart.grand_total).to eq(cart.subtotal_before_discounts(item_1.id) + cart.subtotal_before_discounts(item_2.id))
   end
 end
