@@ -4,7 +4,7 @@
   <% if @discounts.count > 0 %>
     <% @discounts.each do |discount| %>
       <section id="discount-<%= discount.id %>">
-        <p>Discount Number: <%= link_to discount.id, dashboard_discount_path(discount) %> || Discounted Amount: <%= discount.discount_amount %> || Required Spending: <%= discount.discount_quantity %></p>
+        <p><a href="<%= dashboard_discount_path(discount) %>">Discount Number: <%= discount.id %> </a> || Discounted Amount: <%= discount.discount_amount %> || Required Spending: <%= discount.discount_quantity %></p>
       </section>
     <% end %>
   <% else %>
