@@ -2,6 +2,7 @@ class User < ApplicationRecord
   # after_validation :set_slug, only: [:create, :update]
   before_validation :set_slug, on: :create
   before_save :set_slug
+
   has_secure_password
 
   enum role: [:default, :merchant, :admin]

@@ -347,7 +347,7 @@ RSpec.describe 'Merchant Dashboard Items page' do
       scenario 'when logged in as merchant' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
         @am_admin = false
-        visit edit_dashboard_item_path(@item.slug)
+        visit edit_dashboard_item_path(@item)
       end
       scenario 'when logged in as admin' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)

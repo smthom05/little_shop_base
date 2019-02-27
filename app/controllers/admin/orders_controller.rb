@@ -1,7 +1,7 @@
 class Admin::OrdersController < Admin::BaseController
   def index
-    user = User.find_by(slug: params[:slug])
-    @orders = user.orders
+    @user = User.find_by(slug: params[:slug])
+    @orders = @user.orders
     render :'/profile/orders/index'
   end
 

@@ -2,7 +2,7 @@ class Admin::ItemsController < Admin::BaseController
   def index
     @merchant = User.find_by(slug: params[:slug])
     @items = @merchant.items
-    render :'/merchants/items/index'
+    render '/merchants/items/index'
   end
 
   def new
@@ -14,8 +14,8 @@ class Admin::ItemsController < Admin::BaseController
   end
 
   def edit
-    @merchant = User.find_by(slug: params[:slug])
     @item = Item.find_by(slug: params[:slug])
+    @merchant = @item.user
     @form_path = [:admin, @merchant, @item]
 
     render "/merchants/items/edit"

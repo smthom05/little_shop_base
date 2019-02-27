@@ -99,7 +99,7 @@ class Merchants::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :image, :price, :inventory)
+    params.require(:item).permit(:slug, :name, :description, :image, :price, :inventory)
   end
 
   def set_item_active(state)
@@ -107,7 +107,7 @@ class Merchants::ItemsController < ApplicationController
     item.active = state
     item.save
     if current_admin?
-      redirect_to admin_merchant_items_path(item.user.slug)
+      redirect_to admin_merchant_items_path(item.user)
     else
       redirect_to dashboard_items_path
     end

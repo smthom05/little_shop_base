@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   # after_validation :set_slug, only: [:create, :update]
   before_validation :set_slug, on: :create
+  before_save :update_slug
   belongs_to :user, foreign_key: 'merchant_id'
   has_many :order_items
   has_many :orders, through: :order_items
@@ -14,6 +15,8 @@ class Item < ApplicationRecord
     only_integer: true,
     greater_than_or_equal_to: 0
   }
+
+  validates_uniqueness_of :slug
 
   def to_param
     slug

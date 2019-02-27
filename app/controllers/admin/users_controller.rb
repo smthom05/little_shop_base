@@ -48,7 +48,7 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :address, :city, :state, :zip, :password)
+    params.require(:user).permit(:slug, :name, :email, :address, :city, :state, :zip, :password)
   end
 
   def set_active_flag(user, active_flag)

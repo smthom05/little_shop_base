@@ -9,7 +9,7 @@ class Admin::MerchantsController < Admin::BaseController
   end
 
   def downgrade
-    user = User.find_by(slug: params[:user_slug])
+    user = User.find_by(slug: params[:slug])
     user.role = :default
     user.save
     redirect_to merchants_path

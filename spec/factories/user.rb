@@ -34,7 +34,7 @@ FactoryBot.define do
   factory :admin, parent: :user do
     sequence(:email) { |n| "admin_#{n}@gmail.com" }
     sequence(:name) { |n| "Admin Name #{n}" }
-    sequence(:slug) { |n| "admin-#{n}-@gmail-com" }
+    sequence(:slug) { |n| "admin_#{n}-@gmail-com" }
     role { 2 }
     active { true }
   end
