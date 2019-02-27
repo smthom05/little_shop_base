@@ -1,0 +1,15 @@
+<section class='all-discounts'>
+  <h1>Your Current Discounts</h1>
+
+  <% if @discounts.count > 0 %>
+    <% @discounts.each do |discount| %>
+      <section id="discount-<%= discount.id %>">
+        <p>Discount Number: <%= discount.id %> || Discounted Amount: <%= discount.discount_amount %> || Required Spending: <%= discount.discount_quantity %></p>
+      </section>
+    <% end %>
+  <% else %>
+    <h4>You have not added any discounts yet.</h4>
+  <% end %>
+
+  <%= link_to "Add Discount", new_dashboard_discount_path %>
+</section>

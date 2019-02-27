@@ -1,0 +1,24 @@
+<h1>Add A New Discount</h1>
+
+<%= form_for @form_path do |f| %>
+
+  <% if @discount.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this discount from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p><%= f.label :discount_amount %>
+  <%= f.text_field :discount_amount, required: true %></p>
+
+  <p><%= f.label :discount_quantity %>
+  <%= f.text_area :discount_quantity, required: true %></p>
+
+  <p><%= f.submit %></p>
+<% end %>
