@@ -10,7 +10,7 @@ class Merchants::OrderItemsController < ApplicationController
     end
     flash[:success] = "You have successfully fulfilled an item"
     if current_admin?
-      redirect_to admin_merchant_path(oi.item.user)
+      redirect_to admin_merchant_path(oi.item.user.slug)
     else
       redirect_to dashboard_order_path(oi.order)
     end

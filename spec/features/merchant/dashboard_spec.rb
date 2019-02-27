@@ -23,7 +23,7 @@ RSpec.describe 'merchant dashboard' do
       end
       scenario 'as an admin' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
-        visit admin_merchant_path(@merchant)
+        visit admin_merchant_path(@merchant.slug)
       end
       after :each do
         expect(page).to have_content(@merchant.name)
@@ -84,9 +84,9 @@ RSpec.describe 'merchant dashboard' do
       end
       scenario 'as an admin' do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
-        visit admin_merchant_path(@merchant)
+        visit admin_merchant_path(@merchant.slug)
         click_link('Items for Sale')
-        expect(current_path).to eq(admin_merchant_items_path(@merchant))
+        expect(current_path).to eq(admin_merchant_items_path(@merchant.slug))
       end
     end
   end

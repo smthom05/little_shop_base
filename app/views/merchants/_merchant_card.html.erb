@@ -2,7 +2,7 @@
   <%= tag.section class: "card-body" do %>
     <%= tag.h5 class: "card-title" do %>
       <% if current_admin? %>
-        <%= link_to merchant.name, admin_merchant_path(merchant) %>
+        <%= link_to merchant.name, admin_merchant_path(merchant.slug) %>
       <% else %>
         <%= merchant.name %>
       <% end %>
@@ -13,9 +13,9 @@
     <% if current_admin? %>
     <p>
     <% if merchant.active %>
-    <%= button_to 'Disable Merchant', admin_disable_merchant_path(merchant), method: :patch %>
+    <%= button_to 'Disable Merchant', admin_disable_merchant_path(merchant.slug), method: :patch %>
     <% else %>
-    <%= button_to 'Enable Merchant', admin_enable_merchant_path(merchant), method: :patch %>
+    <%= button_to 'Enable Merchant', admin_enable_merchant_path(merchant.slug), method: :patch %>
     <% end %>
     </p>
     <% end %>

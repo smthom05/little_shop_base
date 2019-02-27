@@ -5,7 +5,7 @@
       <h5 class="card-title">Top Merchants by Revenue</h5>
       <ul>
         <% @top_three_merchants_by_revenue.each do |merchant| %>
-          <li><%= link_to merchant.name, merchant_path(merchant) %>: <%= number_to_currency(merchant.total) %></li>
+          <li><%= link_to merchant.name, merchant_path(merchant.slug) %>: <%= number_to_currency(merchant.total) %></li>
         <% end %>
       </ul>
     <% end %>
@@ -13,7 +13,7 @@
       <h5 class="card-title">Best Fulfillment Times</h5>
       <ul>
         <% @top_three_merchants_by_fulfillment.each do |merchant| %>
-          <li><%= link_to merchant.name, merchant_path(merchant) %>: <%= time_as_words(merchant.fulfillment_time) %></li>
+          <li><%= link_to merchant.name, merchant_path(merchant.slug) %>: <%= time_as_words(merchant.fulfillment_time) %></li>
         <% end %>
       </ul>
     <% end %>
@@ -21,7 +21,7 @@
       <h5 class="card-title">Worst Fulfillment Times</h5>
       <ul>
         <% @bottom_three_merchants_by_fulfillment.each do |merchant| %>
-          <li><%= link_to merchant.name, merchant_path(merchant) %>: <%= time_as_words(merchant.fulfillment_time) %></li>
+          <li><%= link_to merchant.name, merchant_path(merchant.slug) %>: <%= time_as_words(merchant.fulfillment_time) %></li>
         <% end %>
       </ul>
     <% end %>

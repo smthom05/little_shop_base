@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # after_validation :set_slug, only: [:create, :update]
+  before_validation :set_slug, on: :create
+  before_save :set_slug
+
   has_secure_password
 
   enum role: [:default, :merchant, :admin]
@@ -11,6 +15,14 @@ class User < ApplicationRecord
 
   validates_presence_of :name, :address, :city, :state, :zip
   validates :email, presence: true, uniqueness: true
+
+  def to_param
+    slug
+  end
+
+  def set_slug
+    self.slug = self.email.to_s.parameterize
+  end
 
   def self.active_merchants
     where(role: "merchant", active: true)
@@ -72,7 +84,7 @@ class User < ApplicationRecord
   def top_items_sold_by_quantity(limit)
     items.joins(:order_items)
          .where(order_items: {fulfilled: true})
-         .select('items.id, items.name, sum(order_items.quantity) as quantity')
+         .select('items.id, items.name, items.slug, sum(order_items.quantity) as quantity')
          .group(:id)
          .order('quantity DESC, id')
          .limit(limit)

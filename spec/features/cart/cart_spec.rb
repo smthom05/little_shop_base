@@ -25,12 +25,12 @@ RSpec.describe 'cart workflow', type: :feature do
 
   describe 'allows visitors to add items to cart' do
     scenario 'as a visitor' do
-      visit item_path(@item)
+      visit item_path(@item.slug)
     end
     scenario 'as a registered user' do
       user = create(:user)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      visit item_path(@item)
+      visit item_path(@item.slug)
     end
     after :each do
       click_button "Add to Cart"
@@ -38,7 +38,7 @@ RSpec.describe 'cart workflow', type: :feature do
       expect(page).to have_link("Cart: 1")
       expect(current_path).to eq(items_path)
 
-      visit item_path(@item)
+      visit item_path(@item.slug)
       click_button "Add to Cart"
 
       expect(page).to have_content("You have 2 packages of #{@item.name} in your cart")
@@ -51,18 +51,18 @@ RSpec.describe 'cart workflow', type: :feature do
       @item_2 = create(:item, user: @merchant)
     end
     scenario 'as a visitor' do
-      visit item_path(@item)
+      visit item_path(@item.slug)
     end
     scenario 'as a registered user' do
       user = create(:user)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      visit item_path(@item)
+      visit item_path(@item.slug)
     end
     after :each do
       click_button "Add to Cart"
-      visit item_path(@item_2)
+      visit item_path(@item_2.slug)
       click_button "Add to Cart"
-      visit item_path(@item_2)
+      visit item_path(@item_2.slug)
       click_button "Add to Cart"
 
       visit cart_path
@@ -92,12 +92,12 @@ RSpec.describe 'cart workflow', type: :feature do
 
   describe 'users can empty their cart if it has items in it' do
     scenario 'as a visitor' do
-      visit item_path(@item)
+      visit item_path(@item.slug)
     end
     scenario 'as a registered user' do
       user = create(:user)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      visit item_path(@item)
+      visit item_path(@item.slug)
     end
     after :each do
       click_button "Add to Cart"
@@ -117,12 +117,12 @@ RSpec.describe 'cart workflow', type: :feature do
       @item_2 = create(:item, user: @merchant, inventory: 3)
     end
     scenario 'as a visitor' do
-      visit item_path(@item)
+      visit item_path(@item.slug)
     end
     scenario 'as a registered user' do
       user = create(:user)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      visit item_path(@item)
+      visit item_path(@item.slug)
     end
     after :each do
       click_button "Add to Cart"
@@ -135,7 +135,7 @@ RSpec.describe 'cart workflow', type: :feature do
       expect(page).to have_content('Your cart is empty')
       expect(page).to have_link('Cart: 0')
 
-      visit item_path(@item_2)
+      visit item_path(@item_2.slug)
       click_button "Add to Cart"
       visit cart_path
 
@@ -168,7 +168,7 @@ RSpec.describe 'cart workflow', type: :feature do
 
   describe 'users can checkout (or not) depending on role' do
     scenario 'as a visitor' do
-      visit item_path(@item)
+      visit item_path(@item.slug)
       click_button "Add to Cart"
       visit cart_path
       expect(page).to have_content('You must register or log in to check out')
@@ -180,7 +180,7 @@ RSpec.describe 'cart workflow', type: :feature do
       visit profile_orders_path
       expect(page).to have_content('You have no orders yet')
 
-      visit item_path(@item)
+      visit item_path(@item.slug)
       click_button "Add to Cart"
       visit cart_path
 
@@ -204,7 +204,7 @@ RSpec.describe 'cart workflow', type: :feature do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
     end
     after :each do
-      visit item_path(@item)
+      visit item_path(@item.slug)
 
       expect(page).to_not have_button("Add to cart")
     end
@@ -214,7 +214,7 @@ end
 RSpec.describe CartController, type: :controller do
   it 'redirects back to where you came from if you try to add an invalid item id to cart' do
     item = create(:item)
-    put :add, params: {id: (item.id + 1)}
+    put :add, params: {slug: (item.id + 1)}
     expect(response.request.env['action_dispatch.request.flash_hash'].to_h['error']).to eq('Cannot add that item')
     expect(response.status).to eq(302)
     expect(response.header['Location']).to include(items_path)

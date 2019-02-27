@@ -1,4 +1,7 @@
 class Item < ApplicationRecord
+  # after_validation :set_slug, only: [:create, :update]
+  before_validation :set_slug, on: :create
+  before_save :update_slug
   belongs_to :user, foreign_key: 'merchant_id'
   has_many :order_items
   has_many :orders, through: :order_items
@@ -12,6 +15,31 @@ class Item < ApplicationRecord
     only_integer: true,
     greater_than_or_equal_to: 0
   }
+
+  validates_uniqueness_of :slug
+
+  def to_param
+    slug
+  end
+
+
+  def set_slug
+    if name
+      if Item.exists?(name: self.name)
+        self.slug = (self.name.to_s + self.id.to_s).parameterize
+      else
+        self.slug = self.name.to_s.parameterize
+      end
+    end
+  end
+
+  def update_slug
+    if Item.exists?(name: self.name)
+      self.slug = (self.name.to_s + self.id.to_s).parameterize
+    else
+      self.slug = self.name.to_s.parameterize
+    end
+  end
 
   def avg_time_to_fulfill
     data = Item.joins(:order_items)

@@ -56,5 +56,4 @@ class ApplicationController < ActionController::Base
     minutes = time[-5..-4]
     "#{days} #{pluralize(hours, 'hour')} #{pluralize(minutes, 'minute')}"
   end
-
 end

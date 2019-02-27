@@ -1,5 +1,5 @@
 <%= tag.div class: "card float-left m-3 item-card" do %>
-  <%= tag.a href: item_path(item) do %>
+  <%= tag.a href: item_path(item.slug) do %>
     <%= image_tag item.image,
       alt: "image for #{item.name}",
       width: img_width,
@@ -9,7 +9,7 @@
 
   <%= tag.section class: "card-body" do %>
     <%= tag.h5 class: "card-title" do %>
-      <%= link_to item.name, item_path(item) %>
+      <%= link_to item.name, item_path(item.slug) %>
     <% end %>
 
     <p>Price: <%= number_to_currency(item.price) %></p>
@@ -32,7 +32,7 @@
 
     <% if current_reguser? || current_user.nil? %>
       <p>
-      <%= button_to 'Add to Cart', cart_item_path(item), method: :post %>
+      <%= button_to 'Add to Cart', cart_item_path(item.slug), method: :post %>
       </p>
     <% end %>
   <% end %>

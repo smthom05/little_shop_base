@@ -2,7 +2,7 @@
 
 <% if current_admin? %>
 <p>
-  <%= button_to 'Downgrade to User', admin_downgrade_merchant_path(@merchant), method: :put %>
+  <%= button_to 'Downgrade to User', admin_downgrade_merchant_path(@merchant.slug), method: :put %>
 </p>
 <% end %>
 
@@ -80,7 +80,7 @@
   <% if current_user == @merchant %>
   <%= link_to 'Items for Sale', dashboard_items_path %>
   <% else %>
-  <%= link_to 'Items for Sale', admin_merchant_items_path(@merchant) %>
+  <%= link_to 'Items for Sale', admin_merchant_items_path(@merchant.slug) %>
   <% end %>
   </p>
 </section>

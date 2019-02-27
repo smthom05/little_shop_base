@@ -10,8 +10,8 @@ RSpec.describe 'items show workflow', type: :feature do
     create(:fulfilled_order_item, order: order_1, item: item, quantity: 5, price: 2, created_at: 3.days.ago, updated_at: 1.day.ago)
     order_2 = create(:completed_order, user: user)
     create(:fulfilled_order_item, order: order_2, item: item, quantity: 5, price: 2, created_at: 1.days.ago, updated_at: 1.hour.ago)
-
-    visit item_path(item)
+    
+    visit item_path(item.slug)
 
     expect(page).to have_content(item.name)
     expect(page).to have_content(item.description)
@@ -26,7 +26,7 @@ RSpec.describe 'items show workflow', type: :feature do
     merchant = create(:merchant)
     item = create(:item, user: merchant, inventory: 0)
 
-    visit item_path(item)
+    visit item_path(item.slug)
 
     expect(page).to have_content("Out of Stock")
     expect(page).to_not have_content("In stock: #{item.inventory}")

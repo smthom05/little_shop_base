@@ -8,7 +8,7 @@ RSpec.describe 'admin user show workflow', type: :feature do
   end
 
   it "should show user information" do
-    visit admin_user_path(@user)
+    visit admin_user_path(@user.slug)
 
     expect(page).to have_content("Name: #{@user.name}")
     expect(page).to have_content("Role: #{@user.role}")
@@ -33,7 +33,7 @@ RSpec.describe 'admin user show workflow', type: :feature do
     end
     it "should be able to edit any or all user information" do
       old_digest = @user.password_digest
-      visit admin_user_path(@user)
+      visit admin_user_path(@user.slug)
 
       click_link 'Edit'
 
@@ -50,7 +50,7 @@ RSpec.describe 'admin user show workflow', type: :feature do
 
       updated_user = User.find_by(email: @updated_email)
 
-      expect(current_path).to eq(admin_user_path(@user))
+      expect(current_path).to eq(admin_user_path(updated_user.slug))
       expect(page).to have_content("Profile has been updated")
       expect(page).to have_content("Name: #{@updated_name}")
       expect(page).to have_content("Email: #{@updated_email}")

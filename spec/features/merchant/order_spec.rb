@@ -114,7 +114,7 @@ RSpec.describe 'merchant order show workflow' do
           @am_admin = true
         end
         after :each do
-          visit @am_admin ? admin_merchant_order_path(@merchant_1, @order_1) : dashboard_order_path(@order_1)
+          visit @am_admin ? admin_merchant_order_path(@merchant_1.slug, @order_1) : dashboard_order_path(@order_1)
           expect(page).to have_content("Order Status: pending")
           within "#oitem-#{@oi_1.id}" do
             click_button('Fulfill')
