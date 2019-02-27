@@ -4,7 +4,11 @@
   <% if @discounts.count > 0 %>
     <% @discounts.each do |discount| %>
       <section id="discount-<%= discount.id %>">
-        <p><a href="<%= dashboard_discount_path(discount) %>">Discount Number: <%= discount.id %> </a> || Discounted Amount: <%= discount.discount_amount %> || Required Spending: <%= discount.discount_quantity %></p>
+        <% if @merchant.dollar? %>
+          <p><a href="<%= dashboard_discount_path(discount) %>">Discount Number: <%= discount.id %> </a> || Discounted Amount: <%= pluralize(discount.discount_amount, 'dollar') %> || Required Spending: <%= pluralize(discount.discount_quantity, 'dollar') %></p>
+        <% elsif @merchant.percentage? %>
+          <p><a href="<%= dashboard_discount_path(discount) %>">Discount Number: <%= discount.id %> </a> || Discounted Amount: <%= discount.discount_amount %>% Off || Required: <%= pluralize(discount.discount_quantity, 'item') %></p>
+        <% end %>
       </section>
     <% end %>
   <% else %>

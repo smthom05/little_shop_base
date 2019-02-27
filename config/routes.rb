@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get '/orders/:id', to: 'merchants/orders#show', as: :order
     put '/order_items/:id', to: 'merchants/order_items#update', as: :fulfill_order_item
     resources :discounts, module: :merchants
+    get '/switch_discount_type', to:'merchants/discounts#switch_discount_type', as: :switch_discount_type
   end
 
   resources :merchants, only: [:index, :show]

@@ -10,4 +10,8 @@ class Discount < ApplicationRecord
     only_integer: true,
     greater_than_or_equal_to: 0
   }
+
+  def self.discount_deleter(merchant)
+    where(user_id: merchant.id).delete_all
+  end
 end

@@ -3,9 +3,15 @@
   <section class='card'>
 
     <h1> Discount Number: <%= @discount.id %> </h1>
+    <br>
 
-    <h3>Discounted Amount: <%= @discount.discount_amount %> </h3>
-    <h3>Required Spending: <%= @discount.discount_quantity %> </h3>
+    <% if @merchant.dollar? %>
+      <h3>Discounted Amount: <%= pluralize(@discount.discount_amount, 'dollar') %> </h3>
+      <h3>Required Spending: <%= pluralize(@discount.discount_quantity, 'dollar') %> spent </h3>
+    <% elsif @merchant.percentage?%>
+      <h3>Discounted Amount: <%= @discount.discount_amount %> % Off </h3>
+      <h3>Required: <%= pluralize(@discount.discount_quantity, 'item') %> </h3>
+    <% end %>
 
     <%= button_to "Edit Discount", edit_dashboard_discount_path(@discount), method: :get  %>
     <%= button_to "Delete Discount", dashboard_discount_path(@discount), method: :delete  %>

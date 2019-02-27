@@ -1,8 +1,8 @@
 class Merchants::DiscountsController < ApplicationController
   before_action :require_merchant
+  before_action :set_merchant
 
   def index
-    @merchant = current_user
     @discounts = Discount.where(user_id: @merchant.id)
   end
 
@@ -50,6 +50,7 @@ class Merchants::DiscountsController < ApplicationController
     end
   end
 
+
   def destroy
     @discount = Discount.find(params[:id])
     flash[:success] = "Successfully Deleted Discount Number: #{@discount.id}!"
@@ -57,7 +58,18 @@ class Merchants::DiscountsController < ApplicationController
     redirect_to dashboard_discounts_path
   end
 
+  def switch_discount_type
+    @merchant.change_discount_type
+    Discount.discount_deleter(@merchant)
+
+    redirect_to dashboard_discounts_path
+  end
+
   private
+
+  def set_merchant
+    @merchant = current_user
+  end
 
   def discount_params
     params.require(:discount).permit(:discount_amount, :discount_quantity)
