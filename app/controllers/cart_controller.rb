@@ -34,7 +34,7 @@ class CartController < ApplicationController
   private
 
   def add_bulk_discount
-    binding.pry
+  
   end
 
   def remove_item(item_id, count=nil)
