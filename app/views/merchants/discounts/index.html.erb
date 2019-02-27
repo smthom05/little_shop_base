@@ -1,5 +1,9 @@
 <section class='all-discounts'>
-  <h1>Your Current Discounts</h1>
+  <% if @merchant.dollar? %>
+    <h1>Your Current Discounts - Dollar Based ($$$)</h1>
+  <% elsif @merchant.percentage? %>
+    <h1>Your Current Discounts - Percentage Based (%%%)</h1>
+  <% end %>
 
   <% if @discounts.count > 0 %>
     <% @discounts.each do |discount| %>
