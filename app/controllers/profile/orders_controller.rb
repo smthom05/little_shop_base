@@ -42,7 +42,7 @@ class Profile::OrdersController < ApplicationController
     if current_reguser?
       redirect_to profile_orders_path
     elsif current_admin?
-      redirect_to admin_user_orders_path(@order.user.slug)
+      redirect_to admin_user_orders_path(@order.user)
     end
   end
 end

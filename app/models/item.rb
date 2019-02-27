@@ -24,14 +24,20 @@ class Item < ApplicationRecord
 
 
   def set_slug
-    self.slug = self.name.to_s.parameterize
+    if name
+      if Item.exists?(name: self.name)
+        self.slug = (self.name.to_s + self.id.to_s).parameterize
+      else
+        self.slug = self.name.to_s.parameterize
+      end
+    end
   end
 
   def update_slug
     if Item.exists?(name: self.name)
-      self.slug = self.name.to_s.parameterize
-    else
       self.slug = (self.name.to_s + self.id.to_s).parameterize
+    else
+      self.slug = self.name.to_s.parameterize
     end
   end
 

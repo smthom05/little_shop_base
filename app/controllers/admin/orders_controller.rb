@@ -1,12 +1,12 @@
 class Admin::OrdersController < Admin::BaseController
   def index
-    @user = User.find_by(slug: params[:slug])
+    @user = User.find_by(params[:id])
     @orders = @user.orders
     render :'/profile/orders/index'
   end
 
   def show
-    @user = User.find_by(slug: params[:slug])
+    @user = User.find_by(params[:id])
     @order = Order.find(params[:id])
 
     if @order.user_id != @user.id
@@ -17,7 +17,7 @@ class Admin::OrdersController < Admin::BaseController
   end
 
   def merchant_show
-    @merchant = User.find_by(slug: params[:slug])
+    @merchant = User.find_by(params[:id])
     @order = Order.find(params[:id])
     @user = @order.user
     @order_items = @order.order_items_for_merchant(@merchant.id)

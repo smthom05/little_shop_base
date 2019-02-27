@@ -10,7 +10,7 @@ class Admin::ItemsController < Admin::BaseController
     @item = Item.new
     @form_path = [:admin, @merchant, @item]
 
-    render "/merchants/items/new"
+    render :"/merchants/items/new"
   end
 
   def edit
@@ -18,6 +18,6 @@ class Admin::ItemsController < Admin::BaseController
     @merchant = @item.user
     @form_path = [:admin, @merchant, @item]
 
-    render "/merchants/items/edit"
+    render :"/merchants/items/edit"
   end
 end
