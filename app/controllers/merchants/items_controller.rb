@@ -88,7 +88,7 @@ class Merchants::ItemsController < ApplicationController
       end
     else
       if current_admin?
-        @form_path = [:admin, @merchant, @item]
+        @form_path = [:admin, @merchant.slug, @item.slug]
       else
         @form_path = [:dashboard, @item]
       end
