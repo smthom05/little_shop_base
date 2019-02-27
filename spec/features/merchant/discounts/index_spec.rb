@@ -4,7 +4,6 @@ RSpec.describe 'merchant discounts index' do
   before :each do
     @merchant = create(:merchant)
     @merchant_2 = create(:merchant)
-    @i1, @i2 = create_list(:item, 2, user: @merchant)
     @discount_1 = @merchant.discounts.create(discount_amount: 10, discount_quantity: 50)
     @discount_2 = @merchant.discounts.create(discount_amount: 20, discount_quantity: 100)
   end
@@ -62,9 +61,21 @@ RSpec.describe 'merchant discounts index' do
       expect(page).to have_link("Add Discount")
 
       click_link "Add Discount"
-      
+
       expect(current_path).to eq(new_dashboard_discount_path)
       expect(page).to have_content("Add A New Discount")
+    end
+
+    it 'can click on the discount number and go to a discount show page' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant)
+
+      visit dashboard_discounts_path
+
+      expect(page).to have_link(@discount_1.id)
+
+      click_link @discount_1.id
+
+      expect(current_path).to eq(dashboard_discount_path(@discount_1))
     end
   end
 end

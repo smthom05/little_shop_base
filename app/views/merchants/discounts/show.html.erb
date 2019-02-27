@@ -1,0 +1,12 @@
+<section class='discount-show'>
+
+  <section class='card'>
+
+    <h1> Discount Number: <%= @discount.id %> </h1>
+
+    <h3>Discounted Amount: <%= @discount.discount_amount %> </h3>
+    <h3>Required Spending: <%= @discount.discount_quantity %> </h3>
+
+    <%= button_to "Edit Discount", edit_dashboard_discount_path(@discount), method: :get  %>
+  </section>
+</section>

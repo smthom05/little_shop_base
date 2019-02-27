@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190227023537) do
+ActiveRecord::Schema.define(version: 20190227055042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "discounts", force: :cascade do |t|
     t.bigint "user_id"
-    t.decimal "discount_amount"
-    t.decimal "discount_quantity"
+    t.integer "discount_amount"
+    t.integer "discount_quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_discounts_on_user_id"
