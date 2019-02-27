@@ -3,7 +3,7 @@ class Merchants::DiscountsController < ApplicationController
 
   def index
     @merchant = current_user
-    @discounts = @merchant.discounts
+    @discounts = Discount.where(user_id: @merchant.id)
   end
 
   def show
@@ -48,6 +48,13 @@ class Merchants::DiscountsController < ApplicationController
       @form_path = [:dashboard, @discount]
       render :edit
     end
+  end
+
+  def destroy
+    @discount = Discount.find(params[:id])
+    flash[:success] = "Successfully Deleted Discount Number: #{@discount.id}!"
+    @discount.destroy
+    redirect_to dashboard_discounts_path
   end
 
   private
